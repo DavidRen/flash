@@ -47,12 +47,12 @@
 			
 			private function init():void{  
 				//videoSource = parameters.videosource;
-				this.videoSource = "http://127.0.0.1/1.flv"
+				this.videoSource = "http://127.0.0.1/flv/1.flv"
 			}  
 			
 			private function playingMove(event:mx.events.VideoEvent):void{  
 				my_hs.value = myVid.playheadTime;  //视频播放时同步进度条状态值
-				}
+			}
 			
 			//拖动进度条时改变播放位置  
 			private function hs_onchange(event:SliderEvent):void{  
@@ -61,7 +61,8 @@
 					return;  
 				}  
 				playPosition = my_hs.value;             //保正播放进度統一  
-				myVid.playheadTime = playPosition; 
+				myVid.playheadTime = playPosition;
+				Alert.show(String(playPosition));
 			}  
 			
 			//进度条鼠标按下  
@@ -150,8 +151,9 @@
 			
 			private function myVid_metadataReceived(evt:MetadataEvent):void {
 				
+				//fileSize = (meta.filesize/(1024*1024)).toFixed(2).toString()+"MB";//换算成兆字节并保留两位小数
+				
 				var meta:Object = evt.info; // 视频的元数据信息
-				fileSize = (meta.filesize/(1024*1024)).toFixed(2).toString()+"MB";//换算成兆字节并保留两位小数 
 				
 				//读取所有元数据属性和值
 				var i:int = 0;
@@ -159,42 +161,27 @@
 				var item:String;
 				var value:*;
 				for (item in meta) {
-				if (ObjectUtil.isSimple(meta[item])) {
-				if (meta[item] is Array) {
-				value = "[Array]";
-				} else {
-				value = meta[item]
-				}
-				
-				Alert.show(item+":"+value);  
-				
-				}
-				
-				}
-				
-				
-			}
-			
-			
-			
-			
-		]]>   
-		
-		
-		
-	</fx:Script>  
-	
+					if (ObjectUtil.isSimple(meta[item])) {
+						if (meta[item] is Array) {
+							value = "[Array]";
+						} else {
+							value = meta[item]
+						}
+						Alert.show(item+":"+value);  	
+					}	
+				}	
+			}	
+		]]>		
+	</fx:Script>
 	<s:BorderContainer borderColor="#66ccff" y="0" cornerRadius="0" borderWeight="0" borderVisible="true" dropShadowVisible="false" x="0" width="660">
-		<mx:VideoDisplay id="myVid" y="10" height="400" width="640"  source="{videoSource}"  autoPlay="false"  buttonMode="true"  click="playButton();"  ready="myVid.visible = true;" metadataReceived="myVid_metadataReceived(event);"
+		<mx:VideoDisplay id="myVid" y="10" height="400" width="640"  source="{videoSource}"  autoPlay="true"  buttonMode="true"  click="playButton();"  ready="myVid.visible = true;" metadataReceived="myVid_metadataReceived(event);"
 						 playheadUpdate="playingMove(event)"  complete="vidComplete();"  doubleClickEnabled="true"  doubleClick="display();" contentBackgroundAlpha="1.0" contentBackgroundColor="#000000" x="10"/>		
 		<mx:HBox width="640" verticalAlign="middle" x="10" y="415" height="90">  
-			<mx:Image source="{playClass}" click="playButton();" id="playBtn" buttonMode="true"/>  
+			<mx:Image source="{pauseClass}" click="playButton();" id="playBtn" buttonMode="true"/>  
 			<mx:Label text="{formatTime(myVid.playheadTime)}/{formatTime(myVid.totalTime)}{fileSize}" width="150"/>
 			<mx:HRule height="0" width="200" buttonMode="true"/> 
 			<mx:Image source="{sound1}" click="closeSound();" id="closeImg" buttonMode="true"/>  
-			<mx:HSlider width="100" id="hs_sound" minimum="0" maximum="1"    
-						change="sound_thumbChanges(event)"  
-						value="{myVid.volume}" buttonMode="true" />  
+			<mx:HSlider width="100" id="hs_sound" minimum="0" maximum="1" change="sound_thumbChanges(event)" value="{myVid.volume}" buttonMode="true" />  
 			<mx:Button label="全屏" click="display();" buttonMode="true" cornerRadius="20" labelPlacement="right" paddingLeft="6"/>  
 		</mx:HBox>  
 		<mx:HSlider width="640" id="my_hs" minimum="0" maximum="{myVid.totalTime}" height="10" showTrackHighlight="true" buttonMode="true" liveDragging="true"
