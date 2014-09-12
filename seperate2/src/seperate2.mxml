@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" creationComplete="hello()">
+	<mx:Script>
+		<![CDATA[
+			import com.seperat2.test.tt;
+			
+			import mx.controls.Alert;
+			var a:tt = new tt();
+			public function onClick():void{
+					
+				
+				a.changeName();
+			}
+			public function hello():void{
+				a.t=this;
+				a.hello();
+			}	
+		]]>
+	</mx:Script>
+	<mx:Panel x="103" y="134" width="343" height="200" layout="absolute">
+		<mx:Button x="51" y="99" label="Button" click="onClick();"/>
+		<mx:Label  x="81" y="31" text="你好" width="196" id="labT"/>
+	</mx:Panel>
+	
+</mx:Application>
