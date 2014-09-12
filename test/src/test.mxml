@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>   
+<Ad:AsDemo xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" fontSize="12" xmlns:AD="AD.*" initialize="" creationComplete="init()" backgroundAlpha="0.6" backgroundColor="#FFFFFF" xmlns:Ad="Ad.*">
+	
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	
+	<fx:Script> 
+		<![CDATA[
+			
+			
+			import mx.controls.Alert;
+			import mx.controls.ProgressBarDirection;
+			import mx.controls.sliderClasses.Slider;
+			import mx.events.MetadataEvent;
+			import mx.events.SliderEvent;
+			import mx.events.VideoEvent;
+			import mx.utils.ObjectUtil;
+			public var asDemo1:AsDemo = new AsDemo();
+			[Embed(source="images/play.png")]
+			[Bindable]  
+			public var playClass:Class;                //播放图标样式  
+			
+			[Embed(source="images/pause.png")]
+			[Bindable]  
+			public var pauseClass:Class;               //暂停图标样式  
+			
+			[Embed(source="images/sound1.png")]
+			[Bindable]  
+			public var sound1:Class;               //声音样式1  
+			[Embed(source="images/sound.png")]  
+			[Bindable] 
+			
+			public var sound:Class;                //声音样式2（静音）  
+		]]>
+	</fx:Script>
+	<s:BorderContainer borderColor="#66ccff" y="0" cornerRadius="0" borderWeight="0" borderVisible="true" dropShadowVisible="false" x="0" width="660">
+		<mx:VideoDisplay id="myVid" y="10" height="400" width="640"  source="{videoSource}"  autoPlay="true"  buttonMode="true"  click="playButton();"  ready="myVid.visible = true;" metadataReceived="myVid_metadataReceived(event);"
+						 playheadUpdate="playingMove(event)"  complete="vidComplete();"  doubleClickEnabled="true"  doubleClick="display();" contentBackgroundAlpha="1.0" contentBackgroundColor="#000000" x="10"/>		
+		<mx:HBox width="640" verticalAlign="middle" x="10" y="415" height="90">  
+			<mx:Image source="{pauseClass}" click="playButton();" id="playBtn" buttonMode="true"/>  
+			<mx:Label text="{formatTime(myVid.playheadTime)}/{formatTime(myVid.totalTime)}{fileSize}" width="150"/>
+			<mx:HRule height="0" width="200" buttonMode="true"/> 
+			<mx:Image source="{sound1}" click="Main2();" id="closeImg" buttonMode="true"/>  
+			<mx:HSlider width="100" id="hs_sound" minimum="0" maximum="1" change="sound_thumbChanges(event)" value="{myVid.volume}" buttonMode="true" />  
+			<mx:Button label="全屏" click="display();" buttonMode="true" cornerRadius="20" labelPlacement="right" paddingLeft="6"/>  
+		</mx:HBox>  
+		<mx:HSlider width="640" id="my_hs" minimum="0" maximum="{myVid.totalTime}" height="10" showTrackHighlight="true" buttonMode="true" liveDragging="true"
+					change="hs_onchange(event)" thumbPress="thumbPress();"  thumbRelease="thumbRelease();" x="10" y="422"  dataTipFormatFunction="dataTipFormat" /> 
+	</s:BorderContainer>
+</Ad:AsDemo>

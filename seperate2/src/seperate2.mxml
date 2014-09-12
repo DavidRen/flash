@@ -6,9 +6,7 @@
 			
 			import mx.controls.Alert;
 			var a:tt = new tt();
-			public function onClick():void{
-					
-				
+			public function onClick():void{				
 				a.changeName();
 			}
 			public function hello():void{
