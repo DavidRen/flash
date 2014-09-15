@@ -83,7 +83,8 @@
 			private function playButton():void{  
 				if(!isPause){  
 					myVid.play();  
-					playBtn.source = pauseClass;  
+					playBtn.source = pauseClass;
+					
 					isPause = true;  
 				}else{  
 					myVid.pause();  
@@ -100,7 +101,7 @@
 			
 			//停止播放  
 			private function stopButton():void{  
-				myVid.stop();  
+				myVid.stop();
 				playBtn.source = playClass;  
 				isPause = false;  
 			}  
