@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" creationComplete="hello()">
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" creationComplete="hello()" focusInEffect="{be}">
 	<mx:Script>
 		<![CDATA[
 			import com.seperat2.test.tt;
@@ -12,12 +12,17 @@
 			public function hello():void{
 				a.t=this;
 				a.hello();
-			}	
+			}
+			private function onClick2(event:Event):void{
+				be.target = event.currentTarget;
+				be.play();
+			}
 		]]>
 	</mx:Script>
 	<mx:Panel x="103" y="134" width="343" height="200" layout="absolute">
 		<mx:Button x="51" y="99" label="Button" click="onClick();"/>
 		<mx:Label  x="81" y="31" text="你好" width="196" id="labT"/>
 	</mx:Panel>
-	
+	<mx:Blur id="be" blurXTo="50" blurYTo="50" duration="1000"  />
+	<mx:Panel id="p" width="200" height="180" click="onClick2(event)" />
 </mx:Application>
