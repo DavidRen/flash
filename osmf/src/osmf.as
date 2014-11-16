@@ -2,16 +2,13 @@ package
 {
 	import flash.display.Sprite;
 	
-	import org.osmf.display;
-	import org.osmf.display.MediaPlayerSprite;
 	import org.osmf.elements.AudioElement;
 	import org.osmf.elements.VideoElement;
 	import org.osmf.media.MediaPlayerSprite;
 	import org.osmf.media.URLResource;
 	import org.osmf.net.NetLoader;
 	import org.osmf.utils.URL;
-	import org.osmf.video.VideoElement;
-	
+
 	/**
 	 * 可能是最简单的OSMF框架范例
 	 * 
@@ -34,7 +31,6 @@ package
 			sprite.media = videoElement;
 		
 		}
-		
 		//加载一段来自Youku的视频
 		private static const REMOTE_PROGRESSIVE:String
 		= "http://59.175.136.209/1772AA58F7B49832E03CED28CF/03000201004B53CC6BC0E10108E7E6992CA757-ADCD-1881-882D-9BBD0FED99A0.flv";
